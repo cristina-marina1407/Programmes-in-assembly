@@ -1,0 +1,94 @@
+**Postelnicu Cristina-Marina**
+**313CA**
+
+
+# Task 1
+
+        In cadrul acestui task verificam daca un sir de caractere are
+    parantezele corect inchise si deschise.
+        Se parcurge sirul de caractere si fiecare paranteza deschisa este
+    adaugata pe stiva. Daca se gaseste o paranteza inchisa se verifica daca
+    ultima paranteza deschisa este paranteza corespunzatoare acesteia, adica
+    ultima adaugata pe stiva. Daca cele doua nu se potrivesc, parantezarea nu
+    este corecta si se returneaza 1.
+        In cazul in care se parcurge intreg sirul fara sa se gaseasca o eroare
+    se returneaza 0.
+
+# Task 2
+
+
+        In cadrul acestui task implementam algoritmul de cautare binara.
+        Programul primește ca parametru vectorul buff și elementul needle
+    acesta avand rolul de a gasi poziția elementului în vector.
+        Se iau de pe stiva argumentele start si end, dupa care se calculeaza
+    mid cu formula mid = l + (r - l) / 2. Daca elementul de pe pozitia mid este
+    mai mare decat needle, se apeleaza recursiv functia cu acelasi start si cu
+    mid - 1 ca end. In caz contrar, se apeleaza recursiv functia cu acelasi end
+    si cu startul mid + 1.
+        Dacă elementul este găsit, programul returnează poziția acestuia. Dacă
+    elementul nu este găsit, programul returnează -1.
+
+# Task 3
+
+        In cadrul acestui task implementam DFS, algoritmul de parcurgere in
+    adancime.
+        Se iau de pe stiva argumentele functiei dfs, nodul de start si un
+    pointer la functia expand, care returneaza o stuctura neighbours_t care, la
+    randul ei, contine numarul de vecini ai unui nod si vectorul sau de
+    vecini.
+        Mai intai, verificam daca nodul este vizitat. Daca acesta este vizitat,
+    programul se incheie, iar daca nu, este marcat ca vizitat si incepe
+    parcurgerea. Se apeleaza functia de printare si functia expand pentru nod.
+    Retinem numarul de vecini si vectorul de vecini in ecx si edx, dupa care
+    parcurgem vecinii nodului si verificam daca sunt vizitati. Daca un vecin nu
+    este vizitat apelam recursiv functia dfs pentru acesta. Dacă un nod nu are
+    vecini nevizitați, algoritmul se întoarce la nodul anterior și încearcă să
+    viziteze următorul vecin.
+
+# check_permission
+
+        * In cadrul acestui task trebuie sa verificam daca o anumita furnica
+    are voie sa rezerve salile pe care le doreste.
+        * Implementam functia check_permission care primeste ca argumente:
+            - eax, in care primii 8 biti reprezinta id ul furnicii, iar restul
+            de 24 de biti reprezinta camerele pe care furnica doreste sa le
+            acceseze.
+            - ebx, adresa unde va fi stocat rezultatul verificarii
+            permisiunilor.
+        * Functia extrage id ul furnicii din primii 8 biti ai eax si il stocheaza
+    in edi. Apoi extrage camerele pe care furnica doreste sa le acceseze din
+    restul de 24 de biti din eax. Obtine lista de camere pe care furnica cu id ul
+    dat, stocat in edx, poate accesa din vectorul ant_permissions. Compara camerele
+    pe care furnica doreste sa le acceseze cu cele pe care le poate accesa.
+    Daca acestea se potrivesc, inseamna ca furnica are permisiunile necesare si
+    se pune 1 in ebx, in caz contrar se pune 0.
+
+# treyfer
+
+        * Acest task este alcatuit din doua functii: treyfer_crypt si
+    treyfer_dcypt.
+        * Functia treyfer_crypt cripteaza un text, folosind o cheie data.
+    Textul si cheia sunt ambele siruri de caractere de lungime 8. La inceput,
+    se initializeaza registrul ecx cu numarul de runde. In interiorul acestei
+    bucle se parcurge fiecare byte al textului intr o alta bucla cu numarul
+    de iteratii egal cu numarul de bytes, stocat in ebx. Se realizeaza suma
+    dintre litera curenta din text si litera curenta din cheie, pozitia fiind
+    stocata in edx, aceasta suma reprezentand numarul t din enunt si fiind
+    stocata in al. Dupa aceasta t devine sbox[t]. Se creste pozitia din edx
+    pentru a accesa urmatorul element si se face i % 8 pentru a nu depasi
+    pozitia maxima. Se extrage in bl urmatoarea litera din cuvant si se
+    aduna cu rezultatul din al (sbox[t]). Se roteste noul rezultat cu un bit
+    la stanga si actualizam byte-ul de pe pozitia (i + 1) % block_size
+	cu valoarea obtinuta. 
+        * Functia treyfer_dcrypt decripteaza un text, folosind o cheie data.
+    Textul si cheia sunt ambele siruri de caractere de lungime 8. La inceput,
+    se initializeaza registrul ecx cu numarul de runde. In interiorul acestei
+    bucle se parcurge fiecare byte al textului intr-o alta bucla cu numarul de
+    iteratii egal cu numarul de bytes, stocat in ebx, incepând de la ultima
+    pozitie. Se realizeaza suma dintre litera curenta din text si litera curenta
+    din cheie, aceasta suma reprezentând numarul t din enunt si fiind stocata in
+    al. Dupa aceasta, t devine sbox[t]. Se creste pozitia din ebx pentru a
+    accesa urmatorul element si se face (i + 1) % 8 pentru a nu depasi pozitia
+    maxima. Se extrage in dl urmatoarea litera din cuvânt si se roteste cu un
+    bit la dreapta. Se scade din dl (bottom) rezultatul din al (top) si 
+    actualizam byte-ul de pe pozitia (i + 1) % block_size cu valoarea obtinuta.
